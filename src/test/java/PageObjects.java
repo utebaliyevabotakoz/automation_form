@@ -21,13 +21,10 @@ public class PageObjects extends TestBase {
                 .setLastName(userLastName)
                 .setEmail(email)
                 .setGender()
-                .setNumber(number);
+                .setNumber(number)
+                .setBirthDate("17","December","1991");
 
 
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOption("December");
-        $(".react-datepicker__year-select").selectOption("1991");
-        $(".react-datepicker__day--017").click();
 
         $("#subjectsInput").setValue("Maths").pressEnter();
         $("#hobbiesWrapper").$(byText("Sports")).click();
