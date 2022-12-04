@@ -1,10 +1,6 @@
 
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.appear;
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
 
 public class PageObjects extends TestBase {
 
@@ -13,7 +9,12 @@ public class PageObjects extends TestBase {
         String userFirstName = "Botakoz",
                 userLastName = "Utebaliyeva",
                 email = "Botakoz@gmail.com",
-                number = "7777777777";
+                number = "7777777777",
+                day = "17",
+                month = "December",
+                year = "1991",
+                subject = "Maths",
+                address = "Kazakhstan Almaty";
 
 
         registrationPage.openPage()
@@ -22,26 +23,21 @@ public class PageObjects extends TestBase {
                 .setEmail(email)
                 .setGender()
                 .setNumber(number)
-                .setBirthDate("17","December","1991");
+                .setBirthDate(day, month, year)
+                .setSubject(subject)
+                .setHobby()
+                .setPicture()
+                .setAddress(address)
+                .setState()
+                .setCity()
+                .setSubmit();
 
-
-
-        $("#subjectsInput").setValue("Maths").pressEnter();
-        $("#hobbiesWrapper").$(byText("Sports")).click();
-
-        $("#uploadPicture").uploadFromClasspath("img/my.jpg");
-
-        $("#currentAddress").setValue("Kazakhstan Almaty");
-        $("#state").click();
-        $("#stateCity-wrapper").$(byText("NCR")).click();
-        $("#city").click();
-        $("#stateCity-wrapper").$(byText("Delhi")).click();
-        $("#submit").click();
-
-
-        $(".modal-dialog").should(appear);
-        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-        $(".table-responsive").shouldHave(text(userFirstName), text(userLastName), text("Delhi"));
+        registrationPage.verifyResultModalAppear()
+                .verifyResult("Student Name", userFirstName + " " + userLastName)
+                .verifyResult("Student Email", email)
+                .verifyResult("Subjects", subject)
+                .verifyResult("Address", address)
+                .verifyResult("Mobile", number);
 
     }
 
