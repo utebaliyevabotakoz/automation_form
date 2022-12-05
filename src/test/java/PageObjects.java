@@ -1,20 +1,25 @@
 
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
+
+import java.util.Locale;
 
 
 public class PageObjects extends TestBase {
 
     @Test
     void successfulRegisterTests() {
-        String userFirstName = "Botakoz",
-                userLastName = "Utebaliyeva",
-                email = "Botakoz@gmail.com",
-                number = "7777777777",
+        Faker faker = new Faker( (new Locale("en")) );
+
+       String userFirstName = faker.name().firstName(),
+                userLastName = faker.name().lastName(),
+                email = faker.internet().emailAddress() ,
+                number = faker.phoneNumber().subscriberNumber(10) ,
                 day = "17",
                 month = "December",
                 year = "1991",
                 subject = "Maths",
-                address = "Kazakhstan Almaty";
+                address = faker.lebowski().quote() ;
 
 
         registrationPage.openPage()
